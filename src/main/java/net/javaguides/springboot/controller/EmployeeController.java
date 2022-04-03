@@ -1,5 +1,8 @@
 package net.javaguides.springboot.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +39,13 @@ public class EmployeeController {
 	@GetMapping("/greet")
 	public String getGreet(){
 		return "Hello world!";
-	}		
+	}	
+	
+	public static Object deserialize(InputStream is) throws Exception{
+		ObjectInputStream ois= new ObjectInputStream(is);
+		return ois.readObject();
+	}
+
 	
 	// create employee rest api
 	@PostMapping("/employees")
