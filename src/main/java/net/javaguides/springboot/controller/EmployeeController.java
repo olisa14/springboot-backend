@@ -1,5 +1,8 @@
 package net.javaguides.springboot.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +23,7 @@ import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.model.Employee;
 import net.javaguides.springboot.repository.EmployeeRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/")
 public class EmployeeController {
@@ -32,7 +35,17 @@ public class EmployeeController {
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees(){
 		return employeeRepository.findAll();
-	}		
+	}	
+	@GetMapping("/greet")
+	public String getGreet(){
+		return "Hello world!";
+	}	
+	
+	public static Object deserialize(InputStream is) throws Exception{
+		ObjectInputStream ois= new ObjectInputStream(is);
+		return ois.readObject();
+	}
+
 	
 	// create employee rest api
 	@PostMapping("/employees")
